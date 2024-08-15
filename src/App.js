@@ -60,7 +60,7 @@ function App() {
     }
   }, [gameMode]);
 
-  
+
   const fetchRankings = async () => {
     try {
       const response = await axios.get('https://graze99.com/api/api.php?action=getRankings');
@@ -68,11 +68,11 @@ function App() {
         setRankings(response.data);
       } else {
         console.error("Fetched rankings is not an array:", response.data);
-        setRankings([]);  
+        setRankings([]);
       }
     } catch (error) {
       console.error("Error fetching rankings:", error);
-      setRankings([]);  
+      setRankings([]);
     }
   };
 
@@ -142,7 +142,7 @@ function App() {
   const saveGameRecord = async (finalPoints, wins, losses, ties) => {
     if (gameMode === "challenge") {
       try {
-        console.log("Saving game record..."); 
+        console.log("Saving game record...");
         const now = new Date();
         const formattedDate = now.getUTCFullYear() + '-' +
           String(now.getUTCMonth() + 1).padStart(2, '0') + '-' +
@@ -150,7 +150,7 @@ function App() {
           String(now.getUTCHours()).padStart(2, '0') + ':' +
           String(now.getUTCMinutes()).padStart(2, '0') + ':' +
           String(now.getUTCSeconds()).padStart(2, '0');
-  
+
         const response = await axios.post('https://graze99.com/api/api.php', {
           action: 'saveRecord',
           userName,
@@ -228,74 +228,77 @@ function App() {
   if (gameMode === "start") {
     return <StartPage onStartGuest={startGuestMode} onStartChallenge={startChallengeMode} />;
   }
-  
+
   return (
     <div className='container'>
       {showNamePopup && <NameInputPopup onSubmit={handleNameSubmit} onClose={closeNamePopup} />}
       {(gameMode === "guest" || gameMode === "challenge") && (
         <div className="row d-flex flex-column mb-3 item-box">
-        <div className="d-flex justify-content-center">
-          <div className='col-12 title-img'>
-            <img src={process.env.PUBLIC_URL + '/images/title_banner.png'} alt="Title Banner" />
+          <div className="d-flex justify-content-center">
+            <div className='col-12 title-img'>
+              <img src={process.env.PUBLIC_URL + '/images/title_banner.png'} alt="Title Banner" />
+            </div>
           </div>
-        </div>
 
-        <div className="d-flex flex-wrap justify-content-around p-2">
-          <div className="item-box-r1">Total Games : {gameCount} / {MAX_GAMES}</div>
-          <div className="item-box-r1">You : {userWins}</div>
-          <div className="item-box-r1">Ties : {ties}</div>
-          <div className="item-box-r1">Computer : {computerWins}</div>
-          <div className="item-box-reset"> <button className="resetButton" onClick={resetGame}>Reset</button></div>
-        </div>
-
-        <div className="alert alert-info text-center" role="alert">
-          이길 경우 150 포인트 획득 / 패배 시 150 포인트 차감 / 비길 경우 30 포인트 차감됩니다.
-          {isGameOver && points <= 0 && (
-            <p className="mt-2 text-danger font-weight-bold">
-              포인트를 모두 잃었습니다. 더 이상 진행이 불가합니다.
-            </p>
-          )}
-          {isGameOver && gameCount >= MAX_GAMES && (
-            <p className="mt-2 text-danger font-weight-bold">
-              도전 가능한 최종 게임 횟수에 도달했습니다.
-            </p>
-          )}
-        </div>
-
-        <div className="col-12 d-flex justify-content-center">
-          <div className='row result'>
-            <Box title="You" item={userSelect} result={result}/>
-            <Box title="Computer" item={computerSelect} result={result === "LOSE" ? "WIN" : result === "WIN" ? "LOSE" : result}/>
-            <div className="item-box-point"><span>Points<p>{points}</p></span> </div>
+          <div className="alert alert-info text-center" role="alert">
+            이길 경우 +150 포인트 / 패배 시 -150 포인트 / 비길 경우 -30 포인트
+            {isGameOver && points <= 0 && (
+              <p className="mt-2 text-danger font-weight-bold">
+                포인트를 모두 잃었습니다. 더 이상 진행이 불가합니다.
+              </p>
+            )}
+            {isGameOver && gameCount >= MAX_GAMES && (
+              <p className="mt-2 text-danger font-weight-bold">
+                도전 가능한 최종 게임 횟수에 도달했습니다.
+              </p>
+            )}
           </div>
-        </div>
 
-        <div className="d-flex justify-content-center mt-4 mb-4">          
-          <ImageButton
-            defaultImage={process.env.PUBLIC_URL + '/images/button-scissors.png'}
-            hoverImage={process.env.PUBLIC_URL + '/images/button-scissors-hover.png'}
-            onClick={() => play('scissors')}
-            disabled={isGameOver}
-          />
-          <ImageButton
-            defaultImage={process.env.PUBLIC_URL + '/images/button-rock.png'}
-            hoverImage={process.env.PUBLIC_URL + '/images/button-rock-hover.png'}
-            onClick={() => play('rock')}
-            disabled={isGameOver}
-          />
-          <ImageButton
-            defaultImage={process.env.PUBLIC_URL + '/images/button-paper.png'}
-            hoverImage={process.env.PUBLIC_URL + '/images/button-paper-hover.png'}
-            onClick={() => play('paper')}
-            disabled={isGameOver}
-          />
+          <div className="d-flex flex-wrap justify-content-between box-p-m">
+            <div className="item-box-r1">Total Games : {gameCount} / {MAX_GAMES}</div>
+            <div className="item-box-r1">You : {userWins}</div>
+            <div className="item-box-r1">Ties : {ties}</div>
+            <div className="item-box-r1">Computer : {computerWins}</div>
+          </div>
+
+          <div className="d-flex flex-wrap justify-content-between box-p-m">
+            <div className="item-box-point"> Points : <span> {points}</span> </div>
+            <div className="item-box-reset"> <button className="resetButton" onClick={resetGame}>Reset</button></div>
+          </div>
+
+          <div className="col-12 d-flex justify-content-center">
+            <div className='row result'>
+              <Box title="You" item={userSelect} result={result} />
+              <Box title="Computer" item={computerSelect} result={result === "LOSE" ? "WIN" : result === "WIN" ? "LOSE" : result} />
+            </div>
+          </div>
+
+          <div className="d-flex justify-content-center mt-4 mb-4">
+            <ImageButton
+              defaultImage={process.env.PUBLIC_URL + '/images/button-scissors.png'}
+              hoverImage={process.env.PUBLIC_URL + '/images/button-scissors-hover.png'}
+              onClick={() => play('scissors')}
+              disabled={isGameOver}
+            />
+            <ImageButton
+              defaultImage={process.env.PUBLIC_URL + '/images/button-rock.png'}
+              hoverImage={process.env.PUBLIC_URL + '/images/button-rock-hover.png'}
+              onClick={() => play('rock')}
+              disabled={isGameOver}
+            />
+            <ImageButton
+              defaultImage={process.env.PUBLIC_URL + '/images/button-paper.png'}
+              hoverImage={process.env.PUBLIC_URL + '/images/button-paper-hover.png'}
+              onClick={() => play('paper')}
+              disabled={isGameOver}
+            />
+          </div>
+
         </div>
-        
-        </div>
-    )}
-    {gameMode === "challenge" && <RankingList rankings={rankings} />}
-  </div>
-);
+      )}
+      {gameMode === "challenge" && <RankingList rankings={rankings} />}
+    </div>
+  );
 }
 
 export default App;

@@ -28,7 +28,7 @@ body {
 }
 
 .container {
-  max-width: 800px;
+  max-width: 600px;
   padding: 2rem;
 }
 
@@ -55,11 +55,11 @@ body {
   border: 1px solid #d4d4d4;
   align-items: center;
   border-radius: 0.8rem;
-  padding: 50px 10px;
+  padding: 20px 10px;
 }
 
 .box img {
-  margin: 50px 0;
+  margin: 10px 0;
 }
 
 .box img {
@@ -76,44 +76,9 @@ body {
 
 .result {
   position: relative;
+  justify-content: space-between;
 }
 
-.item-box-point {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%); /* 요소의 중앙을 기준으로 이동 */
-  text-align: center;
-}
-
-.item-box-point span {
-  display: inline-block;
-  background-color: #ff9a02;
-  color: #ffffff;
-  border: solid 3px #ff4a02;
-  font-size: 36px;
-  padding: 20px 20px 0px 20px;
-  border-radius: 20px;
-  font-family: 'JalnanGothic';
-  letter-spacing: 3px;
-}
-
-.item-box-point span p {
-  margin-top: 10px;
-  font-size: 45px;
-  color: #000000;
-}
-@media screen and (max-width: 576px) {
-  .item-box-point span {
-    font-size: 18px;
-    padding: 20px 5px 0px 5px;
-    border-radius: 15px;
-  }
-  .item-box-point span p {
-    margin-top: 10px;
-    font-size: 24px;
-  }
-}
 .item-box-r1 {
   display: inline-block;
   border-radius: 20px;
@@ -122,19 +87,60 @@ body {
   box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 }
 
-.item-box-reset {
-  display: inline-block;
+.item-box-point{
+  display: flex;
   background-color: rgb(255, 136, 0);
   color: #ffffff;
-  border-radius: 20px;
+  border-radius: 12px;
   padding: 5px 15px;
-  margin: 5px 0;
+  font-size: 22px;
+  font-family: 'JalnanGothic';
+  letter-spacing: 3px;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+.alert  {
+  margin-bottom: 1rem;
+}
+.box-p-m {
+  margin-bottom: 1rem;
+}
+.item-box-reset {
+  display: flex;
+  background-color: rgb(255, 0, 0);
+  color: #ffffff;
+  border-radius: 12px;
+  padding: 5px 15px;
+  font-size: 22px;
+  font-family: 'JalnanGothic';
+  letter-spacing: 3px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+.resetButton {
+  color: #ffffff;
 }
 
 .item-box-value {
   color: rgb(255, 136, 0);
   font-weight: bold;
+}
+
+.item-box-point span {
+  margin-left: 7px;
+  font-size: 22px;
+  color: #000000;
+}
+@media screen and (max-width: 576px) {
+  .item-box-point00 span {
+    font-size: 18px;
+    padding: 20px 5px 0px 5px;
+    border-radius: 15px;
+  }
+  .item-box-point00 span p {
+    margin-top: 10px;
+    font-size: 24px;
+  }
 }
 
 .modal-overlay {
