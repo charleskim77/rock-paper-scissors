@@ -14,9 +14,6 @@ const StartPage = ({ onStartGuest, onStartChallenge }) => {
 
   return (
     <div className="start-page">
-      <div className='video-container'>
-        <img src={process.env.PUBLIC_URL + '/images/event_banner.png'} alt="event_banner" />
-      </div>
       <div className="video-container">
         <video ref={videoRef} autoPlay loop muted={isMuted}>
           <source src={process.env.PUBLIC_URL + "/video/intro_video.mp4"} type="video/mp4" />
